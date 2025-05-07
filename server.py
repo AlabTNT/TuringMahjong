@@ -4,10 +4,11 @@ import threading
 clients = []
 
 class Client_:
-    def __init__(self, conn:socket, addr, username:str):
+    def __init__(self, conn:socket, addr, username:str, room_number:str):
         self.conn = conn
         self.addr = addr
         self.username = username
+        self.room_number = room_number
         
     def __str__(self):
         return f"{self.addr}: {self.username}"
@@ -27,7 +28,19 @@ def handle_client(conn, addr):
         if not username:
             conn.close()
             return
-        _tmp=Client_(conn, addr, username)
+        elif username in clients:
+            conn.send("用户名已存在，请重新输入".encode('utf-8'))
+            conn.close()
+            return
+        elif "$" not in username:
+            conn.send("不合法的连接，请确认客户端版本正确。".encode('utf-8'))
+            conn.close()
+            return
+        else:
+            room_number=username.split("$")[1]
+            username=username.split("$")[0]
+            
+        _tmp=Client_(conn, addr, username, room_number)
         clients.append(_tmp)
         broadcast(f"$Message$📢 {username} 加入了房间")
 
