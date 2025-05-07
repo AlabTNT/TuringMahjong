@@ -74,7 +74,12 @@ def main(page: ft.Page):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.connect((server_ip.value, int(server_port.value)))
         sock.send(f"${name}${room_number.value}".encode('utf-8'))  # 发送用户名和房间号
-        sock.send(name.encode('utf-8'))  # 第一个消息作为用户名发送
+        
+        if sock.recv(1024).decode('utf-8') == "用户名已存在，请重新输入":
+            username.error_text = "用户名已存在，请重新输入"
+            page.update()
+            return
+
 
         chat = ft.TextField(multiline=True, read_only=True, expand=True)
         input_box = ft.TextField(label="输入消息")

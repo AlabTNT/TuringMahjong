@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://ba7psu25cjm1y"]
 
 [ext_resource type="Texture2D" uid="uid://ewgk08iymul5" path="res://assets/群英荟萃1.png" id="1_t4eh5"]
-[ext_resource type="Texture2D" uid="uid://ciifj26843hhx" path="res://assets/button.png" id="2_akkrn"]
+[ext_resource type="Texture2D" uid="uid://ciifj26843hhx" path="res://assets/UI/button.png" id="2_akkrn"]
 [ext_resource type="Texture2D" uid="uid://bv7egttul5wm1" path="res://assets/tiles/m1.png" id="3_5aaim"]
 [ext_resource type="Texture2D" uid="uid://ufvkvaa3eh0f" path="res://assets/tiles/m2.png" id="4_e0e4y"]
 
@@ -17,8 +17,8 @@ material = SubResource("StandardMaterial3D_jk5mo")
 mesh = SubResource("PlaneMesh_nwti1")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.545093, 0.838376, 0, -0.838376, 0.545093, 0, 1.04269, 1.06346)
-fov = 59.0625
+transform = Transform3D(1, 0, 0, 0, 0.545093, 0.838376, 0, -0.838376, 0.545093, 0, 1.243, 1.063)
+fov = 52.0
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 anchors_preset = 8
@@ -36,6 +36,7 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 transparent_bg = true
+handle_input_locally = false
 size = Vector2i(1152, 648)
 render_target_update_mode = 4
 
