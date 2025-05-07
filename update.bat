@@ -1,8 +1,9 @@
+@echo off
+setlocal enabledelayedexpansion
+
 set version=%1
-
-set description=%2
-
 shift
+set description=%1
 shift
 
 :loop
@@ -12,8 +13,14 @@ shift
 goto loop
 
 :continue
-git add .
 
+git checkout main
+
+git fetch origin
+
+git pull --rebase origin main
+
+git add .
 git commit -m "%version%" -m "%description%"
 
 git push origin main
