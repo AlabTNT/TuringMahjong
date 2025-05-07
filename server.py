@@ -2,13 +2,68 @@ import socket
 import threading
 
 clients = []
+rooms={}
+from json import load
+from hashlib import sha256
+from datetime import datetime
+import random
+
+
+with open("./data/name.json",'r',encoding='utf-8') as f:
+    mname=load(f)
+
+class Mahjong:
+    def __init__(self, code:int):
+        self.code=code
+        self.cate=self.code//4
+        self.name:list=mname[str(self.cate)]
+        if self.cate not in [8,17,26,30,33]:
+            self.dora:list=mname[str(self.cate+1)]
+        elif self.cate in [8,17,26]:
+            self.dora:list=mname[str(self.cate-8)]
+        else:
+            self.dora:list=mname[27 if self.cate==30 else 31]
+    
+    def __str__(self):
+        return self.name[0]
+
+class MahjongGame:
+    @staticmethod
+    def generate_mountain(gsd:int)->list:
+        """
+        生成山牌
+        """
+        x=0
+        for i in random.randint(0,100):
+           x+=hash(random.randint(0,100)) 
+        seed=sha256((str(x)+str(gsd)+datetime.now().strftime("%Y-%m-%d %H:%M:%S")).encode()).hexdigest()
+        random.seed(seed)
+            
+        mountain=[Mahjong(i) for i in range(136)]
+        random.shuffle(mountain)
+        
+        start=((random.randint(1,6)+random.randint(1,6))%4)*34+((random.randint(1,6)+random.randint(1,6))%4)*2
+        
+        
+        mountain=mountain[i:]+mountain[:i]
+        return mountain
+
+    
+    def __init__(self, players:list):
+        self.players=players
+        self.mountain=MahjongGame.generate_mountain(hash(self.players))
+        self.wang=self.mountain
+        
+        
 
 class Client_:
-    def __init__(self, conn: socket.socket, addr, username: str, room_number: str):
+    def __init__(self, conn: socket.socket, addr, username: str, room_number: str, shenfen:str="player"):
         self.conn = conn
         self.addr = addr
         self.username = username
         self.room_number = room_number
+        self.shenfen=shenfen
+        self.is_ready=False
 
     def __str__(self):
         return f"{self.addr}: {self.username}"
@@ -21,26 +76,50 @@ class Client_:
             return False
         return True
 
+    def handle_msg(self, rmsg: str):
+        if "$" not in rmsg:
+            return
+        else:
+            msg= rmsg.split("$")
+        if msg[1] == "Message":
+            broadcast(f"$Message${self.username}: {msg[2]}")
+        elif msg[1] == "Start":
+            if self.shenfen=="host":
+                broadcast("$Mahjong$start")
+                
+            else:
+                self.is_ready=True
+                self.send_msg(f"$Message$已准备！")
+                broadcast(f"$Mahjong$ready${self.username}")
+        
+
     def run(self):
         print(f"[+] {self.addr} connected.")
 
         try:
             clients.append(self)
             broadcast(f"$Message$📢 {self.username} 加入了房间")
+            broadcast(f"$Join${self.username}")
 
             while True:
                 msg = self.conn.recv(1024).decode('utf-8')
                 if not msg:
                     break
                 print(f"[{self.username}] {msg}")
-                broadcast(f"{self.username}: {msg}")
+                self.handle_msg(msg)
         except:
             pass
         finally:
             print(f"[-] {self.addr} ({self.username}) disconnected.")
             clients.remove(self)
-            broadcast(f"$Message$📢 {self.username} 离开了聊天")
+            broadcast(f"$Message$📢 {self.username} 离开了房间")
+            broadcast(f"$Leave${self.username}")
             self.conn.close()
+            if self.room_number in rooms.keys():
+                rooms[self.room_number].remove(self)
+                if len(rooms[self.room_number]) == 0:
+                    del rooms[self.room_number]
+                    print(f"[-] 房间 {self.room_number} 已关闭")
 
 def broadcast(message):
     print(f"[广播] {message}")
@@ -61,7 +140,8 @@ def handle_connection(conn, addr):
             conn.close()
             return
         else:
-            username, room_number = username_raw.split("$", 1)
+            room_number = username_raw.split("$")[2]
+            username = username_raw.split("$")[1]
             # 检查用户名是否已存在
             if any(c.username == username for c in clients):
                 conn.send("用户名已存在，请重新输入".encode('utf-8'))
@@ -70,6 +150,17 @@ def handle_connection(conn, addr):
 
             client = Client_(conn, addr, username, room_number)
             threading.Thread(target=client.run, daemon=True).start()
+            print(f"[+] {addr} ({username}) 连接成功")
+            client.send_msg(f"$Message$已成功以 {username} 连接到房间 {room_number}")
+            if room_number not in rooms.keys():
+                rooms[room_number] = [client]
+                client.send_msg(f"$Message$由于房间无人，已成功创建房间 {room_number}")
+                client.shenfen="host"
+            else:
+                rooms[room_number].append(client)
+                if len(rooms[room_number])>4:
+                    client.send_msg(f"$Message$房间 {room_number} 已满，已更改你的身份为旁观者")
+                    client.shenfen="spectator"
 
     except Exception as e:
         print(f"[!] 处理连接时出错: {e}")

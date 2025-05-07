@@ -10,4 +10,7 @@ test.*
 *.km
 ybmc_h5/
 update.bat
-.gitignore
+temp.*
+*.temp
+*.log
+temp/
