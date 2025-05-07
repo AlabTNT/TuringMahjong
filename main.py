@@ -9,8 +9,8 @@ SERVER_PORT = 11555
 
 def handle_rdata(page:ft.Page,rdata:str):
     data=rdata.split("$")
-    if data[0]=="Message":
-        page.add(ft.Text(data[1],size=20,color=ft.colors.GREEN))
+    if data[1]=="Message":
+        page.add(ft.Text(data[2],size=20,color=ft.colors.GREEN))
     elif data[1]=="Mahjong":
         pass
     page.update()
