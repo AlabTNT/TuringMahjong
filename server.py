@@ -18,14 +18,14 @@ class Mahjong:
         self.cate=self.code//4
         self.name:list=mname[str(self.cate)]
         if self.code in [16,52,98] :
-            self.name:list=mname[str(self.code//36)+34]
-            
-        if self.cate not in [8,17,26,30,33]:
+            self.name:list=mname[str(self.code//36 +34)]
+            self.dora:list=mname[str((self.code//36)*9+5)]
+        elif self.cate not in [8,17,26,30,33]:
             self.dora:list=mname[str(self.cate+1)]
         elif self.cate in [8,17,26]:
             self.dora:list=mname[str(self.cate-8)]
         else:
-            self.dora:list=mname[27 if self.cate==30 else 31]
+            self.dora:list=mname["27" if self.cate==30 else "31"]
     
     def __str__(self):
         return self.name[0]
@@ -47,7 +47,7 @@ class MahjongGame:
         
         start=((random.randint(1,6)+random.randint(1,6))%4)*34+((random.randint(1,6)+random.randint(1,6))%4)*2
         
-        mountain=mountain[i:]+mountain[:i]
+        mountain=mountain[start:]+mountain[:start]
         return mountain
 
     
@@ -55,10 +55,19 @@ class MahjongGame:
         self.players=players
         self.mountain=MahjongGame.generate_mountain(hash(self.players))
         self.s256=sha256(str([str(i) for i in self.mountain]))
-        self.dorasign=self.mountain[-10]
-        self.dora=self.dorasign.dora
-        
-        
+        self.dorasign=[self.mountain[-10]]
+        self.ridorasign=[self.mountain[-9]]
+        self.dora=[self.dorasign[0].dora]
+        self.ridora=[self.ridorasign[0].dora]
+        self.lingshang=[self.mountain[-11],self.mountain[-12],self.mountain[-13],self.mountain[-14]] 
+    
+    def kaigang(self):
+        self.dorasign.append(self.mountain[len(self.dorasign)*2-10])
+        self.ridorasign.append(self.mountain[len(self.ridorasign)*2-9])
+        self.dora.append(self.dorasign[-1].dora)
+        self.ridora.append(self.ridorasign[-1].dora)
+        return self.lingshang.pop()
+           
 
 class Client_:
     def __init__(self, conn: socket.socket, addr, username: str, room_number: str, shenfen:str="player"):
