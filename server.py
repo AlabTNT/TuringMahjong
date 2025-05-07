@@ -17,6 +17,9 @@ class Mahjong:
         self.code=code
         self.cate=self.code//4
         self.name:list=mname[str(self.cate)]
+        if self.code in [16,52,98] :
+            self.name:list=mname[str(self.code//36)+34]
+            
         if self.cate not in [8,17,26,30,33]:
             self.dora:list=mname[str(self.cate+1)]
         elif self.cate in [8,17,26]:
@@ -44,7 +47,6 @@ class MahjongGame:
         
         start=((random.randint(1,6)+random.randint(1,6))%4)*34+((random.randint(1,6)+random.randint(1,6))%4)*2
         
-        
         mountain=mountain[i:]+mountain[:i]
         return mountain
 
@@ -52,7 +54,9 @@ class MahjongGame:
     def __init__(self, players:list):
         self.players=players
         self.mountain=MahjongGame.generate_mountain(hash(self.players))
-        self.wang=self.mountain
+        self.s256=sha256(str([str(i) for i in self.mountain]))
+        self.dorasign=self.mountain[-10]
+        self.dora=self.dorasign.dora
         
         
 
