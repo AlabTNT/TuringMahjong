@@ -1,0 +1,292 @@
+[gd_scene load_steps=35 format=3 uid="uid://cpbynd1pp6qwr"]
+
+[ext_resource type="Script" path="res://scripts/Majiang.cs" id="1_ls4qx"]
+[ext_resource type="Texture2D" uid="uid://cv4cmimiav6ue" path="res://pai/一筒.png" id="2_eu4wf"]
+[ext_resource type="Texture2D" uid="uid://g6fu84eon1u6" path="res://pai/二筒.png" id="3_ybwoc"]
+[ext_resource type="Texture2D" uid="uid://xrddrcecjgp1" path="res://pai/三筒.png" id="4_tu2qf"]
+[ext_resource type="Texture2D" uid="uid://btp3tf0244qfb" path="res://pai/四筒.png" id="5_go8t3"]
+[ext_resource type="Texture2D" uid="uid://ca0k5galak87e" path="res://pai/五筒.png" id="6_rbtgs"]
+[ext_resource type="Texture2D" uid="uid://bomps5e1i0cpw" path="res://pai/六筒.png" id="7_63qgc"]
+[ext_resource type="Texture2D" uid="uid://bo81obu4fili1" path="res://pai/七筒.png" id="8_olw3d"]
+[ext_resource type="Texture2D" uid="uid://cdygvnnagy6n0" path="res://pai/八筒.png" id="9_02pv2"]
+[ext_resource type="Texture2D" uid="uid://b2u2vxjjipdex" path="res://pai/九筒.png" id="10_3f1ey"]
+[ext_resource type="Texture2D" uid="uid://dr6425xrg84uf" path="res://pai/一条.png" id="11_opolo"]
+[ext_resource type="Texture2D" uid="uid://dlc65biyep1s2" path="res://pai/二条.png" id="12_r3xu8"]
+[ext_resource type="Texture2D" uid="uid://578m2t732h1x" path="res://pai/三条.png" id="13_a74fw"]
+[ext_resource type="Texture2D" uid="uid://bxo5ybe02a4vq" path="res://pai/四条.png" id="14_xkfxk"]
+[ext_resource type="Texture2D" uid="uid://bre7ybv2jiuvi" path="res://pai/五条.png" id="15_j4ymr"]
+[ext_resource type="Texture2D" uid="uid://f6s1eksi6bvr" path="res://pai/六条.png" id="16_1y8up"]
+[ext_resource type="Texture2D" uid="uid://c6ucfavi2c62y" path="res://pai/七条.png" id="17_sghd4"]
+[ext_resource type="Texture2D" uid="uid://bhq2e0o47vt6" path="res://pai/八条.png" id="18_uehul"]
+[ext_resource type="Texture2D" uid="uid://cdb3uqe2negnb" path="res://pai/九条.png" id="19_rnr0s"]
+[ext_resource type="Texture2D" uid="uid://cswwe8it8qi33" path="res://pai/一万.png" id="20_pqgdn"]
+[ext_resource type="Texture2D" uid="uid://c8v6cp10vx23v" path="res://pai/二万.png" id="21_fqrdx"]
+[ext_resource type="Texture2D" uid="uid://bvyu6h22i478f" path="res://pai/三万.png" id="22_2npbi"]
+[ext_resource type="Texture2D" uid="uid://bfnvddgwqkgsq" path="res://pai/四万.png" id="23_jnlsk"]
+[ext_resource type="Texture2D" uid="uid://dh5dcp32qq1gf" path="res://pai/五万.png" id="24_xe5dd"]
+[ext_resource type="Texture2D" uid="uid://bol4t4v5saq7x" path="res://pai/六万.png" id="25_y8w72"]
+[ext_resource type="Texture2D" uid="uid://da0k565s8shmr" path="res://pai/七万.png" id="26_s2p4e"]
+[ext_resource type="Texture2D" uid="uid://dkeiswd2jaxni" path="res://pai/八万.png" id="27_lnnfp"]
+[ext_resource type="Texture2D" uid="uid://cqhe5m44obx2u" path="res://pai/九万.png" id="28_mt10g"]
+[ext_resource type="PackedScene" uid="uid://crql5a82uly65" path="res://pai/麻将模版.glb" id="29_a1mni"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_io43g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_eu4wf")
+}],
+"loop": true,
+"name": &"o_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ybwoc")
+}],
+"loop": true,
+"name": &"o_2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_tu2qf")
+}],
+"loop": true,
+"name": &"o_3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_go8t3")
+}],
+"loop": true,
+"name": &"o_4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_rbtgs")
+}],
+"loop": true,
+"name": &"o_5",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_63qgc")
+}],
+"loop": true,
+"name": &"o_6",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_olw3d")
+}],
+"loop": true,
+"name": &"o_7",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_02pv2")
+}],
+"loop": true,
+"name": &"o_8",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_3f1ey")
+}],
+"loop": true,
+"name": &"o_9",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_opolo")
+}],
+"loop": true,
+"name": &"t_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_r3xu8")
+}],
+"loop": true,
+"name": &"t_2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_a74fw")
+}],
+"loop": true,
+"name": &"t_3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_xkfxk")
+}],
+"loop": true,
+"name": &"t_4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_j4ymr")
+}],
+"loop": true,
+"name": &"t_5",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_1y8up")
+}],
+"loop": true,
+"name": &"t_6",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_sghd4")
+}],
+"loop": true,
+"name": &"t_7",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_uehul")
+}],
+"loop": true,
+"name": &"t_8",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("19_rnr0s")
+}],
+"loop": true,
+"name": &"t_9",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("20_pqgdn")
+}],
+"loop": true,
+"name": &"w_1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("21_fqrdx")
+}],
+"loop": true,
+"name": &"w_2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_2npbi")
+}],
+"loop": true,
+"name": &"w_3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("23_jnlsk")
+}],
+"loop": true,
+"name": &"w_4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("24_xe5dd")
+}],
+"loop": true,
+"name": &"w_5",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("25_y8w72")
+}],
+"loop": true,
+"name": &"w_6",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("26_s2p4e")
+}],
+"loop": true,
+"name": &"w_7",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("27_lnnfp")
+}],
+"loop": true,
+"name": &"w_8",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("28_mt10g")
+}],
+"loop": true,
+"name": &"w_9",
+"speed": 5.0
+}]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rtynn"]
+size = Vector3(0, 0.32, 0.24)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fup8f"]
+size = Vector3(0, 0.42, 0.24)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cokqc"]
+emission_enabled = true
+emission = Color(0, 0, 1, 1)
+emission_energy_multiplier = 10.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_1lmgx"]
+material = SubResource("StandardMaterial3D_cokqc")
+size = Vector3(0.159, 0.34, 0.25)
+
+[node name="Majiang" type="StaticBody3D"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("1_ls4qx")
+
+[node name="Zi" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(-6.99382e-10, 0, 0.016, 0, 0.016, 0, -0.016, 0, -6.99382e-10, 0.0811693, 0.00412589, -0.00225675)
+sprite_frames = SubResource("SpriteFrames_io43g")
+animation = &"o_6"
+
+[node name="Body" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0938807, 0.0123892, 0.0224475)
+shape = SubResource("BoxShape3D_rtynn")
+
+[node name="Ke" parent="." instance=ExtResource("29_a1mni")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="Chosen" type="StaticBody3D" parent="."]
+
+[node name="ChosenBody" type="CollisionShape3D" parent="Chosen"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+shape = SubResource("BoxShape3D_fup8f")
+
+[node name="ChosenArea" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00118709, 0.00102013, -0.00104564)
+visible = false
+mesh = SubResource("BoxMesh_1lmgx")

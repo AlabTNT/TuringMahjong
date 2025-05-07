@@ -1,0 +1,150 @@
+[gd_scene load_steps=18 format=3 uid="uid://cggvl3oarysri"]
+
+[ext_resource type="Script" path="res://scripts/CameraController.cs" id="1_b0uug"]
+[ext_resource type="PackedScene" uid="uid://dhonadq2mk0l5" path="res://materials/UI/Table.glb" id="1_hfg1j"]
+[ext_resource type="Script" path="res://scripts/MahjongGenerator.cs" id="2_3ufru"]
+[ext_resource type="Texture2D" uid="uid://cl1ufdsid4me1" path="res://materials/UI/onstart.png" id="4_3hkqi"]
+[ext_resource type="Script" path="res://scripts/Start.cs" id="4_o7g1i"]
+[ext_resource type="Texture2D" uid="uid://c0lqkce2bpiar" path="res://materials/UI/start.png" id="5_o5uu5"]
+[ext_resource type="Texture2D" uid="uid://cmrpk5vj8u33c" path="res://materials/UI/join.png" id="6_qmjmm"]
+[ext_resource type="Script" path="res://scripts/Join.cs" id="7_8035k"]
+[ext_resource type="Texture2D" uid="uid://cklwdpdctkfds" path="res://materials/UI/onjoin.png" id="7_thopy"]
+[ext_resource type="Texture2D" uid="uid://bdpnaixm6uspy" path="res://materials/UI/create.png" id="8_f88jd"]
+[ext_resource type="Texture2D" uid="uid://ciaxyua8cy4oy" path="res://materials/UI/oncreate.png" id="9_mqtxg"]
+[ext_resource type="Script" path="res://scripts/Create.cs" id="10_d18hy"]
+[ext_resource type="Script" path="res://scripts/NetCheck.cs" id="13_eqbyv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1prir"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_o5uu5")
+}],
+"loop": false,
+"name": &"off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_3hkqi")
+}],
+"loop": false,
+"name": &"on",
+"speed": 5.0
+}]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ysrp1"]
+size = Vector3(0.85, 0, 1.42)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1fx6k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_qmjmm")
+}],
+"loop": false,
+"name": &"off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_thopy")
+}],
+"loop": false,
+"name": &"on",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bd1dr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_f88jd")
+}],
+"loop": false,
+"name": &"off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_mqtxg")
+}],
+"loop": false,
+"name": &"on",
+"speed": 5.0
+}]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D3" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-4.37114e-08, -0.642788, 0.766044, 0, 0.766044, 0.642788, -1, 2.80971e-08, -3.34849e-08, 6, 4.295, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.999999, 0, 0, 0, 0.766044, 0.642787, 0, -0.642787, 0.766044, 0, 6, 10.5)
+visible = false
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-1, 5.61943e-08, -6.69698e-08, 0, 0.766044, 0.642788, 8.74228e-08, 0.642787, -0.766045, 0, 6, -10.5)
+visible = false
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-4.37114e-08, -0.939693, 0.34202, 0, 0.34202, 0.939693, -1, 4.10753e-08, -1.49502e-08, 2, 3, 0)
+fov = 76.9678
+script = ExtResource("1_b0uug")
+
+[node name="MouseRayCast" type="RayCast3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+collide_with_areas = true
+
+[node name="Table" parent="." instance=ExtResource("1_hfg1j")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.1, 0)
+
+[node name="MahjongGenerator" type="Node3D" parent="."]
+script = ExtResource("2_3ufru")
+
+[node name="Dong" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, 0)
+
+[node name="UI" type="Node3D" parent="."]
+
+[node name="Start" type="StaticBody3D" parent="UI"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.8, 2.4)
+script = ExtResource("4_o7g1i")
+
+[node name="Show" type="AnimatedSprite3D" parent="UI/Start"]
+transform = Transform3D(-2.18557e-09, -0.0482963, 0.012941, 0, 0.012941, 0.0482963, -0.05, 2.1111e-09, -5.65667e-10, 0, 0, 0)
+sprite_frames = SubResource("SpriteFrames_1prir")
+animation = &"off"
+
+[node name="Range" type="CollisionShape3D" parent="UI/Start"]
+transform = Transform3D(0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_ysrp1")
+
+[node name="Join" type="StaticBody3D" parent="UI"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.8, 0)
+script = ExtResource("7_8035k")
+
+[node name="Show" type="AnimatedSprite3D" parent="UI/Join"]
+transform = Transform3D(-2.18557e-09, -0.0482963, 0.012941, 0, 0.012941, 0.0482963, -0.05, 2.1111e-09, -5.65667e-10, 0, 0, 0)
+sprite_frames = SubResource("SpriteFrames_1fx6k")
+animation = &"off"
+
+[node name="Range" type="CollisionShape3D" parent="UI/Join"]
+transform = Transform3D(0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_ysrp1")
+
+[node name="Create" type="StaticBody3D" parent="UI"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.8, -2.4)
+script = ExtResource("10_d18hy")
+
+[node name="Show" type="AnimatedSprite3D" parent="UI/Create"]
+transform = Transform3D(-2.18557e-09, -0.0482963, 0.012941, 0, 0.012941, 0.0482963, -0.05, 2.1111e-09, -5.65667e-10, 0, 0, 0)
+sprite_frames = SubResource("SpriteFrames_bd1dr")
+animation = &"off"
+
+[node name="Range" type="CollisionShape3D" parent="UI/Create"]
+transform = Transform3D(0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_ysrp1")
+
+[node name="NetCheck" type="Node3D" parent="."]
+script = ExtResource("13_eqbyv")

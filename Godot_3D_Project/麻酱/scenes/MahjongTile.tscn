@@ -1,0 +1,87 @@
+[gd_scene load_steps=29 format=3 uid="uid://8gq38ct5w6wb"]
+
+[ext_resource type="Script" path="res://scripts/MahjongTile.cs" id="1_7iuih"]
+[ext_resource type="PackedScene" uid="uid://djuosbraqs3en" path="res://scenes/wan/wan_1.tscn" id="2_tmjoh"]
+[ext_resource type="PackedScene" uid="uid://cr7ox03dyho3g" path="res://scenes/wan/wan_2.tscn" id="3_u8md3"]
+[ext_resource type="PackedScene" uid="uid://drh0nqrp80lds" path="res://scenes/wan/wan_3.tscn" id="4_bk75x"]
+[ext_resource type="PackedScene" uid="uid://bmhcf3c156a6e" path="res://scenes/wan/wan_4.tscn" id="5_sggei"]
+[ext_resource type="PackedScene" uid="uid://c6ltry16julfn" path="res://scenes/wan/wan_5.tscn" id="6_wcx4v"]
+[ext_resource type="PackedScene" uid="uid://d7q4ulm2n6o0" path="res://scenes/wan/wan_6.tscn" id="7_312fa"]
+[ext_resource type="PackedScene" uid="uid://oc77ygurek34" path="res://scenes/wan/wan_7.tscn" id="8_8qgt0"]
+[ext_resource type="PackedScene" uid="uid://m233gaglgvl1" path="res://scenes/wan/wan_8.tscn" id="9_84sbn"]
+[ext_resource type="PackedScene" uid="uid://imihhtebi2ig" path="res://scenes/wan/wan_9.tscn" id="10_uw5mw"]
+[ext_resource type="PackedScene" uid="uid://beui4lg54gf48" path="res://scenes/tiao/tiao_1.tscn" id="11_3xmpn"]
+[ext_resource type="PackedScene" uid="uid://o45vjsm42iii" path="res://scenes/tiao/tiao_2.tscn" id="12_gjthh"]
+[ext_resource type="PackedScene" uid="uid://bs6h74721sypd" path="res://scenes/tiao/tiao_3.tscn" id="13_ngppb"]
+[ext_resource type="PackedScene" uid="uid://bokx85i4x72q8" path="res://scenes/tiao/tiao_4.tscn" id="14_0yxvl"]
+[ext_resource type="PackedScene" uid="uid://byeym0nho4et8" path="res://scenes/tiao/tiao_5.tscn" id="15_vpdvx"]
+[ext_resource type="PackedScene" uid="uid://bhku2jir8jnph" path="res://scenes/tiao/tiao_6.tscn" id="16_gn0q5"]
+[ext_resource type="PackedScene" uid="uid://bqw1kc3xu8sgs" path="res://scenes/tiao/tiao_7.tscn" id="17_o1six"]
+[ext_resource type="PackedScene" uid="uid://c5mda3fpa11bh" path="res://scenes/tiao/tiao_8.tscn" id="18_f2h5h"]
+[ext_resource type="PackedScene" uid="uid://c6btmn845mde4" path="res://scenes/tiao/tiao_9.tscn" id="19_5o3cw"]
+[ext_resource type="PackedScene" uid="uid://bgd2begyhwmd7" path="res://scenes/tong/tong_1.tscn" id="20_8veon"]
+[ext_resource type="PackedScene" uid="uid://c7r2kbvj71a8b" path="res://scenes/tong/tong_2.tscn" id="21_tfr6v"]
+[ext_resource type="PackedScene" uid="uid://cye5ue1cii2u8" path="res://scenes/tong/tong_3.tscn" id="22_wuts4"]
+[ext_resource type="PackedScene" uid="uid://cru0kjidoaphf" path="res://scenes/tong/tong_4.tscn" id="23_2ub5d"]
+[ext_resource type="PackedScene" uid="uid://dd1raylk0oqnh" path="res://scenes/tong/tong_5.tscn" id="24_8l7hq"]
+[ext_resource type="PackedScene" uid="uid://ceevnieehbl3t" path="res://scenes/tong/tong_6.tscn" id="25_soboi"]
+[ext_resource type="PackedScene" uid="uid://d0oawnsxe11eh" path="res://scenes/tong/tong_7.tscn" id="26_twe2h"]
+[ext_resource type="PackedScene" uid="uid://rndmyspi3vwg" path="res://scenes/tong/tong_8.tscn" id="27_t0ku0"]
+[ext_resource type="PackedScene" uid="uid://s57fqh386sr" path="res://scenes/tong/tong_9.tscn" id="28_jfpv8"]
+
+[node name="MahjongTile" type="Node3D"]
+script = ExtResource("1_7iuih")
+
+[node name="wan1" parent="." instance=ExtResource("2_tmjoh")]
+
+[node name="wan2" parent="." instance=ExtResource("3_u8md3")]
+
+[node name="wan3" parent="." instance=ExtResource("4_bk75x")]
+
+[node name="wan4" parent="." instance=ExtResource("5_sggei")]
+
+[node name="wan5" parent="." instance=ExtResource("6_wcx4v")]
+
+[node name="wan6" parent="." instance=ExtResource("7_312fa")]
+
+[node name="wan7" parent="." instance=ExtResource("8_8qgt0")]
+
+[node name="wan8" parent="." instance=ExtResource("9_84sbn")]
+
+[node name="wan9" parent="." instance=ExtResource("10_uw5mw")]
+
+[node name="tiao1" parent="." instance=ExtResource("11_3xmpn")]
+
+[node name="tiao2" parent="." instance=ExtResource("12_gjthh")]
+
+[node name="tiao3" parent="." instance=ExtResource("13_ngppb")]
+
+[node name="tiao4" parent="." instance=ExtResource("14_0yxvl")]
+
+[node name="tiao5" parent="." instance=ExtResource("15_vpdvx")]
+
+[node name="tiao6" parent="." instance=ExtResource("16_gn0q5")]
+
+[node name="tiao7" parent="." instance=ExtResource("17_o1six")]
+
+[node name="tiao8" parent="." instance=ExtResource("18_f2h5h")]
+
+[node name="tiao9" parent="." instance=ExtResource("19_5o3cw")]
+
+[node name="tong1" parent="." instance=ExtResource("20_8veon")]
+
+[node name="tong2" parent="." instance=ExtResource("21_tfr6v")]
+
+[node name="tong3" parent="." instance=ExtResource("22_wuts4")]
+
+[node name="tong4" parent="." instance=ExtResource("23_2ub5d")]
+
+[node name="tong5" parent="." instance=ExtResource("24_8l7hq")]
+
+[node name="tong6" parent="." instance=ExtResource("25_soboi")]
+
+[node name="tong7" parent="." instance=ExtResource("26_twe2h")]
+
+[node name="tong8" parent="." instance=ExtResource("27_t0ku0")]
+
+[node name="tong9" parent="." instance=ExtResource("28_jfpv8")]
