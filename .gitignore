@@ -1,0 +1,11 @@
+__pycache__
+.vscode
+build
+recurve
+release
+storage
+testpp
+test.*
+*.drawio
+*.km
+ybmc_h5/
