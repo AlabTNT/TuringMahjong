@@ -25,3 +25,5 @@ git clone后，使用`./update.bat "<Version>" "<Description>"`来更新自己�
 - jayi0908: jayi
 - MoonCake__MC: mcmc
 - shang: shng
+
+***请开发者务必及时更新.gitignore! ***

@@ -9,3 +9,5 @@ test.*
 *.drawio
 *.km
 ybmc_h5/
+update.bat
+.gitignore
