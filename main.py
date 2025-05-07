@@ -16,7 +16,7 @@ def handle_rdata(page:ft.Page,rdata:str):
     page.update()
 
 def main(page: ft.Page):
-    page.title = "Flet 聊天客户端"
+    page.title = "TuringMahjong"
 
     username = ft.TextField(label="请输入用户名")
     confirm_button = ft.ElevatedButton(text="确认", width=100)
