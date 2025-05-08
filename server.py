@@ -16,6 +16,7 @@ class Mahjong:
     def __init__(self, code: int):
         self.code = code
         self.cate = self.code // 4
+        self.sorting = float(self.cate) if self.code not in [16,52,98] else self.cate-0.5
         self.name: list = mname[str(self.cate)]
         if self.code in [16, 52, 98]:
             self.name = mname[str(self.code // 36 + 34)]
@@ -29,6 +30,11 @@ class Mahjong:
 
     def __str__(self):
         return self.name[0]
+    
+    def __eq__(self, value):
+        if type(value) == type(self) and self.sorting == value.sorting:
+            return True
+        return False
 
 class MahjongGame:
     @staticmethod
