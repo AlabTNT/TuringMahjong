@@ -17,8 +17,15 @@ Server->Client:
         ->"S":南家username
         ->"N":北家username
 
-="Hand": 配牌操作，代表初始发牌。
-    ->"hand": 列表，内部全为int，详见/data/name.json。初始发送时已排序结束。这里注意34 35 36在排序时实际值为15.5 51.5 97.5
+="Next": 下一局操作，在Start信号发出后Next会紧随其后发出。
+    ->"wind": 本局场风，值为enum{'E', 'S', 'W', 'N'}
+    ->"num": 本局局数
+    ->"honka": 本局本场数
+    ->"E": 亲家username
+    ->"S": 南风username
+    ->"W": 西风username
+    ->"N": 北风username
+    ->"hand": 给本玩家配的初始手牌，内部全为list。详见/data/name.json。初始发送时已排序结束。这里注意34 35 36在排序时实际值为15.5 51.5 97.5
 
 ="Got": 发牌操作，代表每次摸牌。
     ->"pai": 牌面内容，为int，详见/data/name.json
@@ -51,8 +58,21 @@ Server->Client:
         ->"hand": 荣和者手牌，格式[[手牌],[(副露),(副露)],荣和牌]
         ->"yis": 荣和役种，格式{"name":fan}
         ->"ridorasign": 如果立直，则存在本条，为全部里朵拉的list
-        ->"fan"
-    ->"tsumo": 代表有人自摸，在此之前会先发送got，否则为无效消息。值为自摸者username
+        ->"fan":翻数，在役满时为-N。N为役满的倍数，最高为6
+        ->"fu":符数，在5番及以上时为0
+        ->"money":本局获得点棒，包含供托和本场费
+        ->"pay":所有人的点棒流水。为0时不发生点棒交互
+            ->"<username>":int
+    ->"tsumo": 代表有人自摸，在此之前会先发送got，否则为无效消息。值为dict
+        ->"username": 自摸者username
+        ->"hand": 自摸者手牌，格式[[手牌],[(副露),(副露)],进张牌]
+        ->"yis": 荣和役种，格式{"name":fan}
+        ->"ridorasign": 如果立直，则存在本条，为全部里朵拉的list
+        ->"fan":翻数，在役满时为-N。N为役满的倍数，最高为6
+        ->"fu":符数，在5番及以上时为0
+        ->"money":本局获得点棒，包含供托和本场费
+        ->"pay":所有人的点棒流水。为0时不发生点棒交互
+            ->"<username>":int
     ->"ankan": 代表有人暗杠，在此之前会先发送got，否则为无效消息。值为dict
         ->"username": 自摸者username
         ->"value": 暗杠牌值
@@ -62,5 +82,21 @@ Server->Client:
         ->"value": 补杠牌值
         ->"dorasign": 新开朵拉指示牌
     ->"pei": 代表有人拔北，值为拔北者username
+
+="Riu": 流局，代表牌山已空，本局流局。
+    ->"tenpai": 听牌家的手牌，值为dict
+        ->"username": 听牌家username
+        ->"hand": 手牌格式[[手牌],[(副露),(副露)]]
+        ->"tenpai": list，听牌家的所有听牌内容
+    ->"pay":所有人的点棒流水。为0时不发生点棒交互
+        ->"<username>":int
+
+="End": 终局。
+    ->"rank": dict，本局顺位信息
+        ->"1/2/3/4": username
+    ->"money": dict，本局终了时点棒数
+        ->"1/2/3/4": int
+    ->"score": dict，本局终了时分数变动
+        ->"1/2/3/4": float
 
 
