@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://ba7psu25cjm1y"]
 
 [ext_resource type="Texture2D" uid="uid://ewgk08iymul5" path="res://assets/群英荟萃1.png" id="1_t4eh5"]
-[ext_resource type="Texture2D" uid="uid://ciifj26843hhx" path="res://assets/UI/button.png" id="2_akkrn"]
-[ext_resource type="Texture2D" uid="uid://bv7egttul5wm1" path="res://assets/tiles/m1.png" id="3_5aaim"]
-[ext_resource type="Texture2D" uid="uid://ufvkvaa3eh0f" path="res://assets/tiles/m2.png" id="4_e0e4y"]
+[ext_resource type="Texture2D" uid="uid://c2cauy53n0mpp" path="res://assets/UI/op_chi.png" id="2_e78mj"]
+[ext_resource type="Script" path="res://scripts/NetworkManager.cs" id="3_f16fc"]
+[ext_resource type="Script" path="res://scripts/TileGenerator.cs" id="4_0by4j"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jk5mo"]
 albedo_texture = ExtResource("1_t4eh5")
@@ -17,8 +17,8 @@ material = SubResource("StandardMaterial3D_jk5mo")
 mesh = SubResource("PlaneMesh_nwti1")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.545093, 0.838376, 0, -0.838376, 0.545093, 0, 1.243, 1.063)
-fov = 52.0
+transform = Transform3D(1, 0, 0, 0, 0.545093, 0.838376, 0, -0.838376, 0.545093, 0, 1.04269, 1.06346)
+fov = 59.0625
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 anchors_preset = 8
@@ -48,20 +48,17 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Button" type="TextureButton" parent="SubViewportContainer/SubViewport/HandCardUI/Control"]
+[node name="chi" type="TextureButton" parent="SubViewportContainer/SubViewport/HandCardUI/Control"]
 layout_mode = 0
 offset_left = 800.0
-offset_top = 500.0
-offset_right = 936.0
-offset_bottom = 572.0
-texture_normal = ExtResource("2_akkrn")
+offset_top = 450.0
+offset_right = 1020.0
+offset_bottom = 557.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("2_e78mj")
 
-[node name="M1" type="Sprite2D" parent="SubViewportContainer/SubViewport/HandCardUI"]
-position = Vector2(198, 503)
-scale = Vector2(0.05, 0.05)
-texture = ExtResource("3_5aaim")
+[node name="NetworkManager" type="Node" parent="."]
+script = ExtResource("3_f16fc")
 
-[node name="M2" type="Sprite2D" parent="SubViewportContainer/SubViewport/HandCardUI"]
-position = Vector2(260, 500)
-scale = Vector2(0.05, 0.05)
-texture = ExtResource("4_e0e4y")
+[node name="TileGenerator" type="Node" parent="."]
+script = ExtResource("4_0by4j")
