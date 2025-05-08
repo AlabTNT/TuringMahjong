@@ -1,3 +1,6 @@
+git add .
+git commit -m "Pulling before update"
+
 git checkout main
 
 git fetch origin
