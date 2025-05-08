@@ -39,5 +39,28 @@ Server->Client:
 
 ="Action": 操作，代表其他人进行了操作
     ->"got": 代表其他人摸牌了，值为剩余牌数量
-    ->"chi": 代表有人吃了最后一张打出的牌，值为吃牌者username
+    ->"chi": 代表有人吃了最后一张打出的牌，值为dict
+        ->"username": 吃牌者username
+        ->"pist": 持牌方式，1为左靠张，2为右靠张，3为坎张
+    ->"pon": 代表有人碰了最后一张打出的牌，值为碰牌者username
+    ->"kan": 代表有人明杠最后一张打出的牌，值为dict
+        ->"username": 杠牌者username
+        ->"dorasign": 新开朵拉指示牌
+    ->"ron": 代表有人荣和最后一张打出的牌，值为dict
+        ->"username": 荣和者username
+        ->"hand": 荣和者手牌，格式[[手牌],[(副露),(副露)],荣和牌]
+        ->"yis": 荣和役种，格式{"name":fan}
+        ->"ridorasign": 如果立直，则存在本条，为全部里朵拉的list
+        ->"fan"
+    ->"tsumo": 代表有人自摸，在此之前会先发送got，否则为无效消息。值为自摸者username
+    ->"ankan": 代表有人暗杠，在此之前会先发送got，否则为无效消息。值为dict
+        ->"username": 自摸者username
+        ->"value": 暗杠牌值
+        ->"dorasign": 新开朵拉指示牌
+    ->"pukan": 代表有人补杠，在此之前会先发送got，否则为无效消息。值为dict
+        ->"username": 自摸者username
+        ->"value": 补杠牌值
+        ->"dorasign": 新开朵拉指示牌
+    ->"pei": 代表有人拔北，值为拔北者username
+
 

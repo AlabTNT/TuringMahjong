@@ -100,14 +100,14 @@ async def handle_client(websocket):
         if room_number not in rooms:
             rooms[room_number] = [client]
             client.shenfen = "host"
-            await client.send_msg({"msg": f"创建房间 {room_number}", "type": "system"})
+            await client.send_msg({"type": "Message", "msg": f"创建房间 {room_number}"})
         else:
             rooms[room_number].append(client)
             if len(rooms[room_number]) > 4:
                 client.shenfen = "spectator"
-                await client.send_msg({"msg": f"房间已满，你是观战者", "type": "system"})
+                await client.send_msg({"type": "Message", "msg": f"房间已满，你是观战者"})
 
-        await broadcast({"msg": f"📢 {username} 加入了房间", "type": "system"}, room_number)
+        await broadcast({"type": "Message", "msg": f"📢 {username} 加入了房间"}, room_number)
 
         async for message in websocket:
             data = json.loads(message)
