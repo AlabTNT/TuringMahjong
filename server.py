@@ -64,6 +64,21 @@ class MahjongGame:
         self.ridora.append(self.ridorasign[-1].dora)
         return self.lingshang.pop()
 
+class MahjongRoom:
+    def __init__(self, players: list, room_number: str, host):
+        self.players = players
+        self.host= host
+        self.room_number = room_number
+        self.games = []
+        self.current_game = None
+        random.shuffle(self.players)
+        self.money = {p.username: 25000 for p in players}
+        self.current_wind = 0 #0=东风，1=南风，2=西风，3=北风
+        self.current_num = 0 #东X局
+        self.current_honka = 0 #X本场
+        broadcast({"type":"Start","location":{"E":self.players[0].username,"S":self.players[1].username,"W":self.players[2].username,"N":self.players[3].username}})
+
+
 class Client_:
     def __init__(self, websocket, username: str, room_number: str):
         self.websocket = websocket
@@ -98,11 +113,11 @@ async def handle_client(websocket):
         clients.append(client)
 
         if room_number not in rooms:
-            rooms[room_number] = [client]
+            rooms[room_number] = MahjongRoom([client], room_number, client)
             client.shenfen = "host"
             await client.send_msg({"type": "Message", "msg": f"创建房间 {room_number}"})
         else:
-            rooms[room_number].append(client)
+            rooms[room_number].players.append(client)
             if len(rooms[room_number]) > 4:
                 client.shenfen = "spectator"
                 await client.send_msg({"type": "Message", "msg": f"房间已满，你是观战者"})
@@ -126,7 +141,7 @@ async def handle_client(websocket):
         if client in clients:
             clients.remove(client)
         if client.room_number in rooms:
-            rooms[client.room_number].remove(client)
+            rooms[client.room_number].players.remove(client)
             if not rooms[client.room_number]:
                 del rooms[client.room_number]
         await broadcast({"type": "system", "msg": f"{username} 离开了房间"}, client.room_number)
