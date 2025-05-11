@@ -26,6 +26,7 @@ Server->Client:
     ->"W": 西风username
     ->"N": 北风username
     ->"hand": 给本玩家配的初始手牌，内部全为list。详见/data/name.json。初始发送时已排序结束。这里注意34 35 36在排序时实际值为15.5 51.5 97.5
+    ->"sha256": 本局牌山sha256值，玩家可在对局结束后查看牌山计算sha256确定是否有作弊现象
 
 ="Got": 发牌操作，代表每次摸牌。
     ->"pai": 牌面内容，为int，详见/data/name.json

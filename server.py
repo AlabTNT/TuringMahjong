@@ -50,12 +50,31 @@ class MahjongGame:
     def __init__(self, players: list):
         self.players = players
         self.mountain = MahjongGame.generate_mountain(hash(str(self.players)))
+        self.archive = tuple(self.mountain.copy())
         self.s256 = sha256(str([str(i) for i in self.mountain]).encode())
         self.dorasign = [self.mountain[-10]]
         self.ridorasign = [self.mountain[-9]]
         self.dora = [self.dorasign[0].dora]
         self.ridora = [self.ridorasign[0].dora]
         self.lingshang = self.mountain[-14:-10]
+        self.handTiles = {i.username: [] for i in players}
+        
+        #$ 配牌操作
+        for _ in range(3):
+            for i in self.players:
+                for __ in range(4):
+                    self.handTiles[i.name].append(self.mountain.pop(0))
+        for i in self.players:
+            self.handTiles[i.name].append(self.mountain.pop(0))
+    
+    def mopai(self, player):
+        if self.mountain:
+            tile = self.mountain.pop(0)
+            self.handTiles[player.username].append(tile)
+            return tile
+        else:
+            return None
+                
 
     def kaigang(self):
         self.dorasign.append(self.mountain[len(self.dorasign) * 2 - 10])
@@ -65,6 +84,8 @@ class MahjongGame:
         return self.lingshang.pop()
 
 class MahjongRoom:
+    WiNd={"1":"东风","2":"南风","3":"西风","4":"北风"}
+    
     def __init__(self, players: list, room_number: str, host):
         self.players = players
         self.host= host
@@ -73,10 +94,25 @@ class MahjongRoom:
         self.current_game = None
         random.shuffle(self.players)
         self.money = {p.username: 25000 for p in players}
-        self.current_wind = 0 #0=东风，1=南风，2=西风，3=北风
+        self.current_wind = 1 #0=东风，1=南风，2=西风，3=北风
         self.current_num = 0 #东X局
         self.current_honka = 0 #X本场
         broadcast({"type":"Start","location":{"E":self.players[0].username,"S":self.players[1].username,"W":self.players[2].username,"N":self.players[3].username}})
+        self.newGame()
+        
+    def newGame(self, keep=False):
+        self.current_game = MahjongGame(self.players)
+        if keep:
+            self.current_honka += 1
+        else:
+            self.current_num += 1
+            self.current_honka = 0
+            if self.current_num == 5:
+                self.current_num = 1
+                self.current_wind = (self.current_wind + 1)
+        for i in self.players:
+            i.send_msg({"type":"Next", "wind":MahjongRoom.WiNd[str(self.current_wind)],"num":self.current_num,"honka":self.current_honka,"E":self.players[0].username,"S":self.players[1].username,"W":self.players[2].username,"N":self.players[3].username,"hand":self.current_game.handTiles[i.username]})
+        
 
 
 class Client_:
@@ -90,13 +126,19 @@ class Client_:
     async def send_msg(self, msg: dict):
         try:
             await self.websocket.send(json.dumps(msg))
-        except:
-            print(f"[-] 发送消息失败: {msg}")
+        except Exception as e:
+            print(f"[-] 发送消息失败: {msg}, 错误: {e}")
 
 async def broadcast(msg: dict, room_number=None):
     for c in clients:
         if room_number is None or c.room_number == room_number:
             await c.send_msg(msg)
+
+def handle_message(data: dict, client: Client_): #! 在此实现client-server消息处理
+    execute = data.get("type")
+    match execute:
+        case "Message":
+            pass
 
 async def handle_client(websocket):
     try:
@@ -122,21 +164,30 @@ async def handle_client(websocket):
                 client.shenfen = "spectator"
                 await client.send_msg({"type": "Message", "msg": f"房间已满，你是观战者"})
 
+        await broadcast({"type": "Join", "name": f"{username}"})
         await broadcast({"type": "Message", "msg": f"📢 {username} 加入了房间"}, room_number)
 
         async for message in websocket:
             data = json.loads(message)
-            if data.get("type") == "Message":
-                await broadcast({"type": "Message", "msg": f"{username}: {data['msg']}"}, room_number)
-            elif data.get("type") == "Start" and client.shenfen == "host":
-                await broadcast({"type": "Mahjong", "msg": "start"}, room_number)
-            elif data.get("type") == "Ready":
-                client.is_ready = True
-                await broadcast({"type": "Mahjong", "msg": f"ready${username}"}, room_number)
-                await client.send_msg({"msg": "已准备！", "type": "system"})
+            handle_message(data, client)
+            # if data.get("type") == "Message":
+            #     await broadcast({"type": "Message", "msg": f"{username}: {data['msg']}"}, room_number)
+            # elif data.get("type") == "Start" and client.shenfen == "host":
+            #     await broadcast({"type": "Mahjong", "msg": "start"}, room_number)
+            # elif data.get("type") == "Ready":
+            #     client.is_ready = True
+            #     await broadcast({"type": "Mahjong", "msg": f"ready${username}"}, room_number)
+            #     await client.send_msg({"msg": "已准备！", "type": "system"})
 
     except websockets.ConnectionClosed:
         print(f"[-] {username} 断开连接")
+        if client and client.room_number in rooms:
+            if client.shenfen == "host":
+                await broadcast({"type": "Message", "msg": f"房主 {username} 已断开连接，房间解散"}, client.room_number)
+                del rooms[client.room_number]
+            else:
+                await broadcast({"type": "Leave", "name": f"{username}"}, client.room_number)
+                await broadcast({"type": "Message", "msg": f"{username} 离开了房间"}, client.room_number)
     finally:
         if client in clients:
             clients.remove(client)
@@ -144,7 +195,8 @@ async def handle_client(websocket):
             rooms[client.room_number].players.remove(client)
             if not rooms[client.room_number]:
                 del rooms[client.room_number]
-        await broadcast({"type": "system", "msg": f"{username} 离开了房间"}, client.room_number)
+        await broadcast({"type": "Leave", "name": f"{username}"}, client.room_number)
+        await broadcast({"type": "Message", "msg": f"{username} 离开了房间"}, client.room_number)
 
 async def main():
     async with websockets.serve(handle_client, "", 11556):
