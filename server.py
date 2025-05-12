@@ -31,10 +31,18 @@ class Mahjong:
     def __str__(self):
         return self.name[0]
     
+    def __lt__(self, value):
+        if type(value) == type(self):
+            return self.sorting < value.sorting
+        return False
+    
     def __eq__(self, value):
         if type(value) == type(self) and self.sorting == value.sorting:
             return True
         return False
+    
+    def __repr__(self):
+        return self.name[1]
 
 class MahjongGame:
     @staticmethod
@@ -74,14 +82,13 @@ class MahjongGame:
             return tile
         else:
             return None
-                
 
     def kaigang(self):
         self.dorasign.append(self.mountain[len(self.dorasign) * 2 - 10])
         self.ridorasign.append(self.mountain[len(self.ridorasign) * 2 - 9])
         self.dora.append(self.dorasign[-1].dora)
         self.ridora.append(self.ridorasign[-1].dora)
-        return self.lingshang.pop()
+        return self.lingshang.pop(0)
 
 class MahjongRoom:
     WiNd={"1":"东风","2":"南风","3":"西风","4":"北风"}
@@ -112,6 +119,7 @@ class MahjongRoom:
                 self.current_wind = (self.current_wind + 1)
         for i in self.players:
             i.send_msg({"type":"Next", "wind":MahjongRoom.WiNd[str(self.current_wind)],"num":self.current_num,"honka":self.current_honka,"E":self.players[0].username,"S":self.players[1].username,"W":self.players[2].username,"N":self.players[3].username,"hand":self.current_game.handTiles[i.username]})
+        
         
 
 
