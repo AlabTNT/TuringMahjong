@@ -1,0 +1,4 @@
+- 增添access.protocol中Client->Server内容，加双斜杠的不确认是否需要添加。
+- Godot中废除了TileGenerator和NetWorkManager，改用TileDealer和Transmitter，TileDealer用于生成手牌，Transmitter用于信息交互。
+- Godot项目实现了Transmitter.cs（用于前后端的信息交互）接受server.py脚本信息的功能，但只有初始手牌的信息会被传递给主程序
+- Godot项目中的TileDealer.cs用于处理手牌逻辑，目前只做了实例化初始手牌的部分，并且手牌类型仍为TextureRect，但留了修改类型的接口，等待shang改变手牌类型并将按钮等UI进行统一

@@ -104,3 +104,58 @@ Server->Client:
         ->"1/2/3/4": float
 
 
+Client->Server:
+="Message": 玩家发送的消息（聊天）（暂不实现）
+    ->"name": 发送者用户名
+    ->"msg": 消息内容
+
+="Join": 本玩家加入房间
+    ->"name": 加入者用户名
+
+="Leave": 本玩家离开房间
+    ->"name": 离开者用户名
+
+="SelfOut": 打牌操作，代表自家打牌。
+    ->"person": 用户名，代表出牌者
+    ->"pai": 牌面内容，为int，详见/data/name.json
+    ->"teki": 手切，为1时代表手切，为0时代表摸切。
+    ->"action": dict，打出这张牌时执行的操作，空时不执行操作
+        ->"riichi": 立直，值为1时立直，值为0时不立直。
+        ->"rian": 流局，值为1时流局，值为0时不流局。
+        //->"kan": 开暗杠，值为1时开，值为0时不开。
+
+="SelfAction": 操作，代表自家进行了操作。
+    ->"chi": 吃牌.
+        ->"from": 吃牌者username
+        ->"furu": 吃掉的牌型，值为list
+    ->"pon": 碰牌.
+        ->"from": 吃牌者username
+        ->"furu": 吃掉的牌型，值为list（用于区别普通碰和带红五碰）
+    ->"kan": 杠牌.
+        ->"from": 吃牌者username
+        ->"furu": 吃掉的牌型，值为list
+        ->"isAnkan": 是否暗杠，值为1时暗杠，值为0时非暗杠
+        ->"isPukan": 是否补杠，值为1时补杠，值为0时非补杠
+    ->"ron": 胡牌，值为胡牌者username
+    ->"tsumo": 自摸，值为1时自摸，值为0时不自摸。
+    ->"pei": 拔北，值为1时拔北，值为0时不拔北。
+
+="Flow": 本局流水。
+    ->"wind": 本局场风，值为enum{'E', 'S', 'W', 'N'}
+    ->"num": 本局局数
+    ->"honka": 本局本场数
+    // ->"isRiu": 是否流局，值为1时流局，值为0时非流局。
+    ->"person": 玩家数，代表三人/四人麻将，值为3/4
+    ->"rank": 排位
+        ->"1st": 第一名
+            ->"name": 玩家名username
+            ->"score": 得分int
+        ->"2nd": 第二名
+            ->"name": 玩家名username
+            ->"score": 得分int
+        ->"3rd": 第三名
+            ->"name": 玩家名username
+            ->"score": 得分int
+        ->"4th": 第四名
+            ->"name": 玩家名username
+            ->"score": 得分int

@@ -1,9 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://ba7psu25cjm1y"]
+[gd_scene load_steps=13 format=3 uid="uid://ba7psu25cjm1y"]
 
 [ext_resource type="Texture2D" uid="uid://ewgk08iymul5" path="res://assets/群英荟萃1.png" id="1_t4eh5"]
 [ext_resource type="Texture2D" uid="uid://c2cauy53n0mpp" path="res://assets/UI/op_chi.png" id="2_e78mj"]
-[ext_resource type="Script" path="res://scripts/NetworkManager.cs" id="3_f16fc"]
-[ext_resource type="Script" path="res://scripts/TileGenerator.cs" id="4_0by4j"]
+[ext_resource type="Texture2D" uid="uid://clfqnv4m4fwuj" path="res://assets/UI/op_peng.png" id="3_dsink"]
+[ext_resource type="Texture2D" uid="uid://dib6jjuc82bed" path="res://assets/UI/op_gang.png" id="4_euohs"]
+[ext_resource type="Script" path="res://scripts/TileDealer.cs" id="4_wjcxr"]
+[ext_resource type="Script" path="res://scripts/Transmitter.cs" id="5_jjyh7"]
+[ext_resource type="Texture2D" uid="uid://b33gx6qc840jf" path="res://assets/UI/op_lizhi.png" id="5_rjg64"]
+[ext_resource type="Texture2D" uid="uid://1spel7phq5co" path="res://assets/UI/op_zimo.png" id="6_ysagg"]
+[ext_resource type="Texture2D" uid="uid://dfcjyrerfonyo" path="res://assets/UI/op_babei.png" id="7_q2yfl"]
+[ext_resource type="Texture2D" uid="uid://xdlx8ub20e48" path="res://assets/UI/op_hu.png" id="8_jy8x6"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jk5mo"]
 albedo_texture = ExtResource("1_t4eh5")
@@ -49,6 +55,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="chi" type="TextureButton" parent="SubViewportContainer/SubViewport/HandCardUI/Control"]
+visible = false
 layout_mode = 0
 offset_left = 800.0
 offset_top = 450.0
@@ -57,8 +64,50 @@ offset_bottom = 557.0
 scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("2_e78mj")
 
-[node name="NetworkManager" type="Node" parent="."]
-script = ExtResource("3_f16fc")
+[node name="pon" type="TextureButton" parent="SubViewportContainer/SubViewport/HandCardUI/Control"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("3_dsink")
 
-[node name="TileGenerator" type="Node" parent="."]
-script = ExtResource("4_0by4j")
+[node name="kan" type="TextureButton" parent="SubViewportContainer/SubViewport/HandCardUI/Control"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("4_euohs")
+
+[node name="riichi" type="TextureButton" parent="SubViewportContainer/SubViewport/HandCardUI/Control"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("5_rjg64")
+
+[node name="tsumo" type="TextureButton" parent="SubViewportContainer/SubViewport/HandCardUI/Control"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("6_ysagg")
+
+[node name="pei" type="TextureButton" parent="SubViewportContainer/SubViewport/HandCardUI/Control"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("7_q2yfl")
+
+[node name="ron" type="TextureButton" parent="SubViewportContainer/SubViewport/HandCardUI/Control"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("8_jy8x6")
+
+[node name="Transmitter" type="Node" parent="."]
+script = ExtResource("5_jjyh7")
+
+[node name="TileDealer" type="Node" parent="."]
+script = ExtResource("4_wjcxr")
