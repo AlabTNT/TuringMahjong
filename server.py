@@ -43,6 +43,20 @@ class Mahjong:
     
     def __repr__(self):
         return self.name[1]
+    
+    @staticmethod
+    def ron(data:dict) -> dict:
+        pass
+    def tenpai(data:dict)-> list:
+        senddata=[]
+        xiangting=len(data["furu"])
+        if xiangting == 4:
+            for i in data["hand"]:
+                senddata.append({"code":i.code})
+        
+        
+    def xt():
+        pass
 
 class MahjongGame:
     @staticmethod
@@ -60,25 +74,34 @@ class MahjongGame:
         self.mountain = MahjongGame.generate_mountain(hash(str(self.players)))
         self.archive = tuple(self.mountain.copy())
         self.s256 = sha256(str([str(i) for i in self.mountain]).encode())
-        self.dorasign = [self.mountain[-10]]
-        self.ridorasign = [self.mountain[-9]]
+        self.dorasign = [self.mountain[-6]]
+        self.ridorasign = [self.mountain[-5]]
         self.dora = [self.dorasign[0].dora]
         self.ridora = [self.ridorasign[0].dora]
-        self.lingshang = self.mountain[-14:-10]
+        self.lingshang = self.mountain[-4:]
         self.handTiles = {i.username: [] for i in players}
+        self.fuku = {i.username: [] for i in players}
+        self.river = {i.username: [] for i in players}
+        self.left= len(self.mountain)-14
         
         #$ 配牌操作
         for _ in range(3):
             for i in self.players:
                 for __ in range(4):
                     self.handTiles[i.name].append(self.mountain.pop(0))
+                    self.left -= 1
         for i in self.players:
             self.handTiles[i.name].append(self.mountain.pop(0))
+            self.left -= 1
+        
+        self.current_action=self.players[0]
+        
     
     def mopai(self, player):
-        if self.mountain:
+        if self.left > 0:
             tile = self.mountain.pop(0)
             self.handTiles[player.username].append(tile)
+            self.left-=1
             return tile
         else:
             return None
@@ -88,7 +111,24 @@ class MahjongGame:
         self.ridorasign.append(self.mountain[len(self.ridorasign) * 2 - 9])
         self.dora.append(self.dorasign[-1].dora)
         self.ridora.append(self.ridorasign[-1].dora)
+        self.left-=1
         return self.lingshang.pop(0)
+    
+    def liuju(self):
+        pass
+
+    def main_loop(self):
+        while True:
+            new=self.mopai(self.current_action)
+            if new is None:
+                self.liuju()
+                break
+            Mahjong.tenpai()
+            self.current_action.send_msg({"type":"Got","pai":new,"update":self.left,"action":[]})
+            for i in self.players:
+                if i != self.current_action:
+                    i.send_msg({"type":"Action","got":self.left})
+        
 
 class MahjongRoom:
     WiNd={"1":"东风","2":"南风","3":"西风","4":"北风"}
@@ -119,6 +159,9 @@ class MahjongRoom:
                 self.current_wind = (self.current_wind + 1)
         for i in self.players:
             i.send_msg({"type":"Next", "wind":MahjongRoom.WiNd[str(self.current_wind)],"num":self.current_num,"honka":self.current_honka,"E":self.players[0].username,"S":self.players[1].username,"W":self.players[2].username,"N":self.players[3].username,"hand":self.current_game.handTiles[i.username]})
+        broadcast({"type":"Dora","new":self.current_game.dorasign[-1]})
+        self.current_game.main_loop()
+            
         
         
 

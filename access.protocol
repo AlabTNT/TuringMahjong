@@ -38,6 +38,9 @@ Server->Client:
         ->"rian": 代表可以流局，为1时可以流局，为0时不能流局。
         ->"kan": 代表可以开暗杠，为1时可以开，为0时不能开。
 
+"Dora": 开朵拉操作
+    ->"new": 朵拉指示牌，为int，详见/data/name.json
+
 ="Out": 打牌操作，代表其他人打牌。
     ->"person": 用户名，代表出牌者
     ->"pai": 牌面内容，为int，详见/data/name.json
